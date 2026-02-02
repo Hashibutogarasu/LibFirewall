@@ -3,7 +3,14 @@
     ".": {
       "release-type": "simple",
       "package-name": "LibFirewall",
-      "include-component-in-tag": false
+      "include-component-in-tag": false,
+      "extra-files": [
+        "LibFirewall.csproj"
+      ]
+    },
+    "rust": {
+      "release-type": "rust",
+      "package-name": "lib_firewall_rust"
     }
   },
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
