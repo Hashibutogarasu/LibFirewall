@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.2.0-beta1...v1.3.0-beta1) (2026-02-02)
+
+
+### Features
+
+* added rust cache ([64b0d72](https://github.com/Hashibutogarasu/LibFirewall/commit/64b0d72b1f6f422564b2bfc266898cb66e1733f0))
+
+
+### Bug Fixes
+
+* fixed csproj ([86fae3f](https://github.com/Hashibutogarasu/LibFirewall/commit/86fae3f6467bd66def7a49a9d4ea22d262fd7e10))
+* fixed nuget package upload ([d3da3e7](https://github.com/Hashibutogarasu/LibFirewall/commit/d3da3e70205f01bb7c751786b284f6a18d8ac1a2))
+
 ## [1.2.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.1.0-beta1...v1.2.0-beta1) (2026-02-02)
 
 
