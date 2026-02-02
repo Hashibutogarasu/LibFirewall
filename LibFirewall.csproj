@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>LibFirewall</RootNamespace>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <Platforms>AnyCPU;x86;x64;ARM64</Platforms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Unsafe>true</Unsafe>
+    <UseWinUI>true</UseWinUI>
+    <WinUISDKReferences>false</WinUISDKReferences>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>LibFirewall</PackageId>
+    <Version>1.0.0-beta1</Version>
+    <Authors>Antigravity</Authors>
+    <Description>Rust-powered Windows Firewall library</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Include the generated NativeMethods.cs if it's not automatically picked up, 
+         but defaults usually pick it up. We don't need to explicitly add it if it's in the root. -->
+         
+    <!-- Native DLL inclusion -->
+    <None Include="rust\target\release\lib_firewall_rust.dll" Link="lib_firewall_rust.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>true</Pack>
+      <PackagePath>runtimes/win-x64/native/lib_firewall_rust.dll</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <Target Name="BuildRust" BeforeTargets="BeforeBuild">
+    <Exec Command="cargo build --release" WorkingDirectory="rust" />
+  </Target>
+  
+</Project>
