@@ -51,7 +51,7 @@ jobs:
         run: dotnet pack -c Release --no-build
 
       - name: Publish to NuGet
-        run: dotnet nuget push bin\Release\*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push bin\Release\*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
       - name: Upload to Release
         env:

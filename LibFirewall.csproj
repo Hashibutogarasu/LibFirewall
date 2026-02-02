@@ -11,7 +11,7 @@
     <WinUISDKReferences>false</WinUISDKReferences>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>LibFirewall</PackageId>
-    <Version>1.0.0-beta1</Version>
+    <Version>1.2.0-beta1</Version>
     <Authors>Antigravity</Authors>
     <Description>Rust-powered Windows Firewall library</Description>
   </PropertyGroup>
