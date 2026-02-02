@@ -10,7 +10,19 @@ using System.Runtime.InteropServices;
 
 namespace LibFirewall
 {
-    
+    internal static unsafe partial class NativeMethods
+    {
+        const string __DllName = "lib_firewall_rust";
+
+
+
+
+
+        [DllImport(__DllName, EntryPoint = "rust_add", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        internal static extern int rust_add(int a, int b);
+
+
+    }
 
 
 
