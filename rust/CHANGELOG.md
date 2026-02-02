@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/Hashibutogarasu/LibFirewall/compare/lib_firewall_rust-v0.3.0...lib_firewall_rust-v0.4.0) (2026-02-02)
+
+
+### Features
+
+* added windows crate ([139dc29](https://github.com/Hashibutogarasu/LibFirewall/commit/139dc293f53601be59c7efbc067d1c898dc9f398))
+
 ## [0.3.0](https://github.com/Hashibutogarasu/LibFirewall/compare/lib_firewall_rust-v0.2.0...lib_firewall_rust-v0.3.0) (2026-02-02)
 
 
