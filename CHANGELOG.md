@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.4.0-beta1...v1.5.0-beta1) (2026-02-02)
+
+
+### Features
+
+* added windows crate ([139dc29](https://github.com/Hashibutogarasu/LibFirewall/commit/139dc293f53601be59c7efbc067d1c898dc9f398))
+
 ## [1.4.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.3.0-beta1...v1.4.0-beta1) (2026-02-02)
 
 
