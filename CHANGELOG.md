@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.1.0-beta1...v1.2.0-beta1) (2026-02-02)
+
+
+### Features
+
+* added multi package support ([7658b2f](https://github.com/Hashibutogarasu/LibFirewall/commit/7658b2f88fb3e641ba9e973b309a6108dcbfced5))
+
 ## [1.1.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.0.0-beta1...v1.1.0-beta1) (2026-02-02)
 
 
