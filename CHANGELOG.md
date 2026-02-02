@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.5.0-beta1...v1.6.0-beta1) (2026-02-02)
+
+
+### Features
+
+* added GetInboundRules method ([f6a9cc9](https://github.com/Hashibutogarasu/LibFirewall/commit/f6a9cc9f1318598f45e4a38a65b379a03374c34c))
+* added tests for get firewall tests ([8061ccd](https://github.com/Hashibutogarasu/LibFirewall/commit/8061ccdc096dcdf80ce5499ca40dfc1fa714a6e1))
+
 ## [1.5.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.4.0-beta1...v1.5.0-beta1) (2026-02-02)
 
 
