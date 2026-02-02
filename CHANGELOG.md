@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.3.0-beta1...v1.4.0-beta1) (2026-02-02)
+
+
+### Features
+
+* created test function ([13bde6d](https://github.com/Hashibutogarasu/LibFirewall/commit/13bde6dcbfa6298606e81c2487540f6b1aef8bc7))
+
+
+### Bug Fixes
+
+* fixed git tags ([2c4ddd8](https://github.com/Hashibutogarasu/LibFirewall/commit/2c4ddd8c4ffbe5f16d1ca315d718397092438c44))
+* fixed version ([d597535](https://github.com/Hashibutogarasu/LibFirewall/commit/d597535e531e1fb8cb3c0d5a15d157077fd0cccf))
+
 ## [1.3.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.2.0-beta1...v1.3.0-beta1) (2026-02-02)
 
 
