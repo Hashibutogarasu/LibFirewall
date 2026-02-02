@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 
 namespace LibFirewall
 {
-    internal static unsafe partial class NativeMethods
+    public static unsafe partial class NativeMethods
     {
         const string __DllName = "lib_firewall_rust";
 
@@ -18,12 +18,60 @@ namespace LibFirewall
 
 
 
-        [DllImport(__DllName, EntryPoint = "rust_add", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
-        internal static extern int rust_add(int a, int b);
+        [DllImport(__DllName, EntryPoint = "firewall_init", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool firewall_init();
+
+        [DllImport(__DllName, EntryPoint = "firewall_get_inbound_rules", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        public static extern InboundRule* firewall_get_inbound_rules(int* count);
+
+        [DllImport(__DllName, EntryPoint = "firewall_get_outbound_rules", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        public static extern OutboundRule* firewall_get_outbound_rules(int* count);
+
+        [DllImport(__DllName, EntryPoint = "firewall_free_string", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        public static extern void firewall_free_string(byte* ptr);
+
+        [DllImport(__DllName, EntryPoint = "firewall_free_inbound_rules", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        public static extern void firewall_free_inbound_rules(InboundRule* ptr, int len);
+
+        [DllImport(__DllName, EntryPoint = "firewall_free_outbound_rules", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        public static extern void firewall_free_outbound_rules(OutboundRule* ptr, int len);
 
 
     }
 
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe partial struct InboundRule
+    {
+        public byte* name;
+        public byte* description;
+        public RuleDirection direction;
+        public RuleAction action;
+        [MarshalAs(UnmanagedType.U1)] public bool enabled;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe partial struct OutboundRule
+    {
+        public byte* name;
+        public byte* description;
+        public RuleDirection direction;
+        public RuleAction action;
+        [MarshalAs(UnmanagedType.U1)] public bool enabled;
+    }
+
+
+    public enum RuleDirection : uint
+    {
+        Inbound = 1,
+        Outbound = 2,
+    }
+
+    public enum RuleAction : uint
+    {
+        Block = 0,
+        Allow = 1,
+    }
 
 
 }
