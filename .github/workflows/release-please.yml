@@ -39,6 +39,11 @@ jobs:
       - name: Update Rust
         run: rustup update stable
 
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+
       - name: Build
         run: dotnet build -c Release
 
