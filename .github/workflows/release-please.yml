@@ -56,4 +56,4 @@ jobs:
       - name: Upload to Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{ needs.release-please.outputs.tag_name }} bin/Release/*.nupkg
+        run: gh release upload ${{ needs.release-please.outputs.tag_name }} bin/Release/*.nupkg --clobber
