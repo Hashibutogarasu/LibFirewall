@@ -28,6 +28,9 @@ namespace LibFirewall
         [DllImport(__DllName, EntryPoint = "firewall_get_outbound_rules", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern OutboundRule* firewall_get_outbound_rules(int* count);
 
+        [DllImport(__DllName, EntryPoint = "firewall_get_connection_rules", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        public static extern ConnectionRule* firewall_get_connection_rules(int* count);
+
         [DllImport(__DllName, EntryPoint = "firewall_free_string", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void firewall_free_string(byte* ptr);
 
@@ -36,6 +39,9 @@ namespace LibFirewall
 
         [DllImport(__DllName, EntryPoint = "firewall_free_outbound_rules", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void firewall_free_outbound_rules(OutboundRule* ptr, int len);
+
+        [DllImport(__DllName, EntryPoint = "firewall_free_connection_rules", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        public static extern void firewall_free_connection_rules(ConnectionRule* ptr, int len);
 
 
     }
@@ -86,6 +92,22 @@ namespace LibFirewall
         public byte* service_name;
     }
 
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe partial struct ConnectionRule
+    {
+        public byte* name;
+        public byte* description;
+        public ConnectionSecurityRuleType rule_type;
+        [MarshalAs(UnmanagedType.U1)] public bool enabled;
+        public int profiles;
+        public byte* local_addresses;
+        public byte* remote_addresses;
+        public byte* endpoint1_ports;
+        public byte* endpoint2_ports;
+        public int protocol;
+        public int auth_type;
+    }
+
 
     public enum RuleDirection : uint
     {
@@ -97,6 +119,15 @@ namespace LibFirewall
     {
         Block = 0,
         Allow = 1,
+    }
+
+    public enum ConnectionSecurityRuleType : uint
+    {
+        Isolation = 1,
+        AuthenticationExemption = 2,
+        ServerToServer = 3,
+        Tunnel = 4,
+        Custom = 5,
     }
 
 

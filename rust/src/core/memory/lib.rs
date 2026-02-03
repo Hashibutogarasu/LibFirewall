@@ -61,3 +61,25 @@ pub extern "C" fn firewall_free_outbound_rules(ptr: *mut OutboundRule, len: i32)
         let _ = Box::from_raw(std::slice::from_raw_parts_mut(ptr, len as usize));
     }
 }
+
+#[no_mangle]
+pub extern "C" fn firewall_free_connection_rules(
+    ptr: *mut crate::core::connection::rule::ConnectionRule,
+    len: i32,
+) {
+    if ptr.is_null() {
+        return;
+    }
+    unsafe {
+        let slice = std::slice::from_raw_parts_mut(ptr, len as usize);
+        for rule in slice {
+            firewall_free_string(rule.name);
+            firewall_free_string(rule.description);
+            firewall_free_string(rule.local_addresses);
+            firewall_free_string(rule.remote_addresses);
+            firewall_free_string(rule.endpoint1_ports);
+            firewall_free_string(rule.endpoint2_ports);
+        }
+        let _ = Box::from_raw(std::slice::from_raw_parts_mut(ptr, len as usize));
+    }
+}
