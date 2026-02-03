@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.1-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v2.0.0-beta1...v2.0.1-beta1) (2026-02-03)
+
+
+### Bug Fixes
+
+* fixed actions ([76ad07a](https://github.com/Hashibutogarasu/LibFirewall/commit/76ad07a0cc1eef2873916ca2be55bb46521d5bb1))
+* fixed actions ([3027a02](https://github.com/Hashibutogarasu/LibFirewall/commit/3027a02f2c84e187ebeeec4b8da0af31d7427aff))
+* fixed author ([bc96c5d](https://github.com/Hashibutogarasu/LibFirewall/commit/bc96c5d352624b7f39be3ac3d368dc0727213784))
+
 ## [2.0.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.6.0-beta1...v2.0.0-beta1) (2026-02-03)
 
 
