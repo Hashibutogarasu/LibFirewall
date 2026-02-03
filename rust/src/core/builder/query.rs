@@ -3,8 +3,8 @@ use crate::core::rule::inbound::InboundRule;
 use crate::core::rule::outbound::OutboundRule;
 use windows::core::{Interface, Result};
 use windows::Win32::NetworkManagement::WindowsFirewall::{
-    INetFwPolicy2, INetFwRule, INetFwRules, NetFwPolicy2, NET_FW_ACTION_ALLOW, NET_FW_ACTION_BLOCK,
-    NET_FW_RULE_DIR_IN, NET_FW_RULE_DIR_OUT,
+    INetFwPolicy2, INetFwRule, INetFwRule3, INetFwRules, NetFwPolicy2, NET_FW_ACTION_ALLOW,
+    NET_FW_ACTION_BLOCK, NET_FW_RULE_DIR_IN, NET_FW_RULE_DIR_OUT,
 };
 use windows::Win32::System::Com::{CoCreateInstance, CLSCTX_ALL};
 use windows::Win32::System::Ole::IEnumVARIANT;
@@ -104,12 +104,60 @@ impl RuleListQuery {
                             RuleAction::Block
                         };
 
+                        let protocol = rule.Protocol().unwrap_or(0);
+                        let local_ports = rule.LocalPorts().unwrap_or_default().to_string();
+                        let remote_ports = rule.RemotePorts().unwrap_or_default().to_string();
+                        let local_addresses = rule.LocalAddresses().unwrap_or_default().to_string();
+                        let remote_addresses =
+                            rule.RemoteAddresses().unwrap_or_default().to_string();
+                        let profiles = rule.Profiles().unwrap_or(0);
+                        let interface_types = rule.InterfaceTypes().unwrap_or_default().to_string();
+                        let edge_traversal = rule.EdgeTraversal().unwrap_or_default().as_bool();
+                        let (
+                            local_user_authorized_list,
+                            remote_user_authorized_list,
+                            remote_machine_authorized_list,
+                        ) = if let Ok(rule3) = rule.cast::<INetFwRule3>() {
+                            (
+                                rule3
+                                    .LocalUserAuthorizedList()
+                                    .unwrap_or_default()
+                                    .to_string(),
+                                rule3
+                                    .RemoteUserAuthorizedList()
+                                    .unwrap_or_default()
+                                    .to_string(),
+                                rule3
+                                    .RemoteMachineAuthorizedList()
+                                    .unwrap_or_default()
+                                    .to_string(),
+                            )
+                        } else {
+                            (String::new(), String::new(), String::new())
+                        };
+                        let application_name =
+                            rule.ApplicationName().unwrap_or_default().to_string();
+                        let service_name = rule.ServiceName().unwrap_or_default().to_string();
+
                         if direction_filter == NET_FW_RULE_DIR_IN.0 {
                             in_collected.push(InboundRule::new(
                                 &name,
                                 &description,
                                 action,
                                 enabled_bool,
+                                protocol,
+                                &local_ports,
+                                &remote_ports,
+                                &local_addresses,
+                                &remote_addresses,
+                                profiles,
+                                &interface_types,
+                                edge_traversal,
+                                &local_user_authorized_list,
+                                &remote_user_authorized_list,
+                                &remote_machine_authorized_list,
+                                &application_name,
+                                &service_name,
                             ));
                         } else if direction_filter == NET_FW_RULE_DIR_OUT.0 {
                             out_collected.push(OutboundRule::new(
@@ -117,6 +165,19 @@ impl RuleListQuery {
                                 &description,
                                 action,
                                 enabled_bool,
+                                protocol,
+                                &local_ports,
+                                &remote_ports,
+                                &local_addresses,
+                                &remote_addresses,
+                                profiles,
+                                &interface_types,
+                                edge_traversal,
+                                &local_user_authorized_list,
+                                &remote_user_authorized_list,
+                                &remote_machine_authorized_list,
+                                &application_name,
+                                &service_name,
                             ));
                         }
                     }

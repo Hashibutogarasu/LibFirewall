@@ -48,6 +48,19 @@ namespace LibFirewall
         public RuleDirection direction;
         public RuleAction action;
         [MarshalAs(UnmanagedType.U1)] public bool enabled;
+        public int protocol;
+        public byte* local_ports;
+        public byte* remote_ports;
+        public byte* local_addresses;
+        public byte* remote_addresses;
+        public int profiles;
+        public byte* interface_types;
+        [MarshalAs(UnmanagedType.U1)] public bool edge_traversal;
+        public byte* local_user_authorized_list;
+        public byte* remote_user_authorized_list;
+        public byte* remote_machine_authorized_list;
+        public byte* application_name;
+        public byte* service_name;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -58,6 +71,19 @@ namespace LibFirewall
         public RuleDirection direction;
         public RuleAction action;
         [MarshalAs(UnmanagedType.U1)] public bool enabled;
+        public int protocol;
+        public byte* local_ports;
+        public byte* remote_ports;
+        public byte* local_addresses;
+        public byte* remote_addresses;
+        public int profiles;
+        public byte* interface_types;
+        [MarshalAs(UnmanagedType.U1)] public bool edge_traversal;
+        public byte* local_user_authorized_list;
+        public byte* remote_user_authorized_list;
+        public byte* remote_machine_authorized_list;
+        public byte* application_name;
+        public byte* service_name;
     }
 
 
