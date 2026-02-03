@@ -23,7 +23,7 @@ dependencies = [
 
 [[package]]
 name = "lib_firewall_rust"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "csbindgen",
  "windows",

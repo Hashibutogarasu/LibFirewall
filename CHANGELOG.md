@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v2.0.1-beta1...v2.1.0-beta1) (2026-02-03)
+
+
+### Features
+
+* added more information for rules ([a0fde9d](https://github.com/Hashibutogarasu/LibFirewall/commit/a0fde9db68a625b55def6e8d144014481cede11c))
+* added update function ([da8bb2c](https://github.com/Hashibutogarasu/LibFirewall/commit/da8bb2c1f32ce336c01fb47114adb1274f7ab9ce))
+* get, remove, create connection rules with registry ([d5d0df7](https://github.com/Hashibutogarasu/LibFirewall/commit/d5d0df7cafde95518e13a2391cecafe8f20d1ce6))
+
 ## [2.0.1-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v2.0.0-beta1...v2.0.1-beta1) (2026-02-03)
 
 
