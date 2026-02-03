@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.6.0-beta1...v2.0.0-beta1) (2026-02-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* changed to query builder
+
+### Features
+
+* changed to query builder ([c2b0b3c](https://github.com/Hashibutogarasu/LibFirewall/commit/c2b0b3ce9cb859bf9a8ec72725df82dfe24fddff))
+
+
+### Bug Fixes
+
+* fixed version ([0903ab3](https://github.com/Hashibutogarasu/LibFirewall/commit/0903ab3e1986ebd4b6ba355fe3cf6c948f15f650))
+* fixed version ([963ea75](https://github.com/Hashibutogarasu/LibFirewall/commit/963ea75dd604df2a2a5e19fa2960a7bef3181baa))
+
 ## [1.6.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.5.0-beta1...v1.6.0-beta1) (2026-02-02)
 
 
