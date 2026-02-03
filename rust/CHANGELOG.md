@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/Hashibutogarasu/LibFirewall/compare/lib_firewall_rust-v1.1.0...lib_firewall_rust-v1.2.0) (2026-02-03)
+
+
+### Features
+
+* added add edit remove inbound outbound rule ([77a8f05](https://github.com/Hashibutogarasu/LibFirewall/commit/77a8f05d3c96dad19f25094512dbd94b91d20b80))
+* added add edit remove inbound outbound rule ([42a7fcc](https://github.com/Hashibutogarasu/LibFirewall/commit/42a7fcc54573190e894d84cf1ae7bb0d1d479e49))
+
 ## [1.1.0](https://github.com/Hashibutogarasu/LibFirewall/compare/lib_firewall_rust-v1.0.0...lib_firewall_rust-v1.1.0) (2026-02-03)
 
 
