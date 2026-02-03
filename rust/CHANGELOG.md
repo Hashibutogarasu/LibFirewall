@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/Hashibutogarasu/LibFirewall/compare/lib_firewall_rust-v0.5.0...lib_firewall_rust-v1.0.0) (2026-02-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* changed to query builder
+
+### Features
+
+* changed to query builder ([c2b0b3c](https://github.com/Hashibutogarasu/LibFirewall/commit/c2b0b3ce9cb859bf9a8ec72725df82dfe24fddff))
+
 ## [0.5.0](https://github.com/Hashibutogarasu/LibFirewall/compare/lib_firewall_rust-v0.4.0...lib_firewall_rust-v0.5.0) (2026-02-02)
 
 
