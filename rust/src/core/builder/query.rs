@@ -1,10 +1,9 @@
-use crate::core::rule::enums::RuleAction;
+use crate::core::builder::factory::{RuleFactory, RuleProperties};
 use crate::core::rule::inbound::InboundRule;
 use crate::core::rule::outbound::OutboundRule;
 use windows::core::{Interface, Result};
 use windows::Win32::NetworkManagement::WindowsFirewall::{
-    INetFwPolicy2, INetFwRule, INetFwRules, NetFwPolicy2, NET_FW_ACTION_ALLOW, NET_FW_ACTION_BLOCK,
-    NET_FW_RULE_DIR_IN, NET_FW_RULE_DIR_OUT,
+    INetFwPolicy2, INetFwRule, INetFwRules, NetFwPolicy2, NET_FW_RULE_DIR_IN, NET_FW_RULE_DIR_OUT,
 };
 use windows::Win32::System::Com::{CoCreateInstance, CLSCTX_ALL};
 use windows::Win32::System::Ole::IEnumVARIANT;
@@ -44,12 +43,11 @@ impl Query for RuleListQuery {
                 CoCreateInstance(&NetFwPolicy2, None, CLSCTX_ALL);
             if let Ok(policy) = policy_res {
                 if let Ok(rules) = policy.Rules() {
-                    Self::collect_rules_internal(
-                        &rules,
-                        self.direction,
-                        &mut inbound_rules,
-                        &mut outbound_rules,
-                    );
+                    if self.direction == NET_FW_RULE_DIR_IN.0 {
+                        inbound_rules = Self::collect_rules::<InboundRule>(&rules);
+                    } else if self.direction == NET_FW_RULE_DIR_OUT.0 {
+                        outbound_rules = Self::collect_rules::<OutboundRule>(&rules);
+                    }
                 }
             }
         }
@@ -59,19 +57,15 @@ impl Query for RuleListQuery {
 }
 
 impl RuleListQuery {
-    unsafe fn collect_rules_internal(
-        rules: &INetFwRules,
-        direction_filter: i32,
-        in_collected: &mut Vec<InboundRule>,
-        out_collected: &mut Vec<OutboundRule>,
-    ) {
+    unsafe fn collect_rules<T: RuleFactory>(rules: &INetFwRules) -> Vec<T> {
+        let mut collected = Vec::new();
         let unknown = match rules._NewEnum() {
             Ok(u) => u,
-            Err(_) => return,
+            Err(_) => return collected,
         };
         let enumerator: IEnumVARIANT = match unknown.cast() {
             Ok(e) => e,
-            Err(_) => return,
+            Err(_) => return collected,
         };
 
         let mut variant = [VARIANT::default(); 1];
@@ -92,38 +86,15 @@ impl RuleListQuery {
 
             if let Some(rule) = rule_opt {
                 if let Ok(dir) = rule.Direction() {
-                    if (dir.0 as i32) == direction_filter {
-                        let name = rule.Name().unwrap_or_default().to_string();
-                        let description = rule.Description().unwrap_or_default().to_string();
-                        let enabled_bool = rule.Enabled().unwrap_or_default().as_bool();
-                        let action_val = rule.Action().unwrap_or(NET_FW_ACTION_BLOCK);
-
-                        let action = if action_val == NET_FW_ACTION_ALLOW {
-                            RuleAction::Allow
-                        } else {
-                            RuleAction::Block
-                        };
-
-                        if direction_filter == NET_FW_RULE_DIR_IN.0 {
-                            in_collected.push(InboundRule::new(
-                                &name,
-                                &description,
-                                action,
-                                enabled_bool,
-                            ));
-                        } else if direction_filter == NET_FW_RULE_DIR_OUT.0 {
-                            out_collected.push(OutboundRule::new(
-                                &name,
-                                &description,
-                                action,
-                                enabled_bool,
-                            ));
-                        }
+                    if (dir.0 as i32) == T::direction() {
+                        let props = RuleProperties::from_rule(&rule);
+                        collected.push(T::from_props(props));
                     }
                 }
             }
             let _ = std::mem::replace(&mut variant[0], VARIANT::default());
         }
+        collected
     }
 }
 

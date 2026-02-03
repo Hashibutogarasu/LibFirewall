@@ -68,12 +68,32 @@ namespace LibFirewall
     {
         public readonly string NameStr => Marshal.PtrToStringUTF8((IntPtr)name) ?? "";
         public readonly string DescriptionStr => Marshal.PtrToStringUTF8((IntPtr)description) ?? "";
+        public readonly string LocalPortsStr => Marshal.PtrToStringUTF8((IntPtr)local_ports) ?? "";
+        public readonly string RemotePortsStr => Marshal.PtrToStringUTF8((IntPtr)remote_ports) ?? "";
+        public readonly string LocalAddressesStr => Marshal.PtrToStringUTF8((IntPtr)local_addresses) ?? "";
+        public readonly string RemoteAddressesStr => Marshal.PtrToStringUTF8((IntPtr)remote_addresses) ?? "";
+        public readonly string InterfaceTypesStr => Marshal.PtrToStringUTF8((IntPtr)interface_types) ?? "";
+        public readonly string LocalUserAuthorizedListStr => Marshal.PtrToStringUTF8((IntPtr)local_user_authorized_list) ?? "";
+        public readonly string RemoteUserAuthorizedListStr => Marshal.PtrToStringUTF8((IntPtr)remote_user_authorized_list) ?? "";
+        public readonly string RemoteMachineAuthorizedListStr => Marshal.PtrToStringUTF8((IntPtr)remote_machine_authorized_list) ?? "";
+        public readonly string ApplicationNameStr => Marshal.PtrToStringUTF8((IntPtr)application_name) ?? "";
+        public readonly string ServiceNameStr => Marshal.PtrToStringUTF8((IntPtr)service_name) ?? "";
     }
 
     public unsafe partial struct OutboundRule : IFirewallRule
     {
         public readonly string NameStr => Marshal.PtrToStringUTF8((IntPtr)name) ?? "";
         public readonly string DescriptionStr => Marshal.PtrToStringUTF8((IntPtr)description) ?? "";
+        public readonly string LocalPortsStr => Marshal.PtrToStringUTF8((IntPtr)local_ports) ?? "";
+        public readonly string RemotePortsStr => Marshal.PtrToStringUTF8((IntPtr)remote_ports) ?? "";
+        public readonly string LocalAddressesStr => Marshal.PtrToStringUTF8((IntPtr)local_addresses) ?? "";
+        public readonly string RemoteAddressesStr => Marshal.PtrToStringUTF8((IntPtr)remote_addresses) ?? "";
+        public readonly string InterfaceTypesStr => Marshal.PtrToStringUTF8((IntPtr)interface_types) ?? "";
+        public readonly string LocalUserAuthorizedListStr => Marshal.PtrToStringUTF8((IntPtr)local_user_authorized_list) ?? "";
+        public readonly string RemoteUserAuthorizedListStr => Marshal.PtrToStringUTF8((IntPtr)remote_user_authorized_list) ?? "";
+        public readonly string RemoteMachineAuthorizedListStr => Marshal.PtrToStringUTF8((IntPtr)remote_machine_authorized_list) ?? "";
+        public readonly string ApplicationNameStr => Marshal.PtrToStringUTF8((IntPtr)application_name) ?? "";
+        public readonly string ServiceNameStr => Marshal.PtrToStringUTF8((IntPtr)service_name) ?? "";
     }
 
     public unsafe class InboundRuleCollection(InboundRule* ptr, int count) : IFirewallRuleCollection, IEnumerable<InboundRule>
