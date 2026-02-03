@@ -11,8 +11,24 @@ namespace LibFirewall
         {
             return NativeMethods.firewall_init();
         }
+    }
 
-        public static InboundRuleCollection GetInboundRules()
+    public interface IQueryBuilder<T>
+    {
+        T Build();
+    }
+
+    public static class QueryExecutor
+    {
+        public static T Execute<T>(IQueryBuilder<T> builder)
+        {
+            return builder.Build();
+        }
+    }
+
+    public class InboundRuleBuilder : IQueryBuilder<InboundRuleCollection>
+    {
+        public InboundRuleCollection Build()
         {
             unsafe
             {
@@ -21,8 +37,11 @@ namespace LibFirewall
                 return new InboundRuleCollection(ptr, count);
             }
         }
+    }
 
-        public static OutboundRuleCollection GetOutboundRules()
+    public class OutboundRuleBuilder : IQueryBuilder<OutboundRuleCollection>
+    {
+        public OutboundRuleCollection Build()
         {
             unsafe
             {
@@ -33,19 +52,31 @@ namespace LibFirewall
         }
     }
 
-    public unsafe partial struct InboundRule
+    public interface IFirewallRuleCollection : IDisposable, IEnumerable<IFirewallRule>
+    {
+        int Count { get; }
+        IFirewallRule GetRule(int index);
+    }
+
+    public interface IFirewallRule
+    {
+        string NameStr { get; }
+        string DescriptionStr { get; }
+    }
+
+    public unsafe partial struct InboundRule : IFirewallRule
     {
         public readonly string NameStr => Marshal.PtrToStringUTF8((IntPtr)name) ?? "";
         public readonly string DescriptionStr => Marshal.PtrToStringUTF8((IntPtr)description) ?? "";
     }
 
-    public unsafe partial struct OutboundRule
+    public unsafe partial struct OutboundRule : IFirewallRule
     {
         public readonly string NameStr => Marshal.PtrToStringUTF8((IntPtr)name) ?? "";
         public readonly string DescriptionStr => Marshal.PtrToStringUTF8((IntPtr)description) ?? "";
     }
 
-    public unsafe class InboundRuleCollection(InboundRule* ptr, int count) : IDisposable, IEnumerable<InboundRule>
+    public unsafe class InboundRuleCollection(InboundRule* ptr, int count) : IFirewallRuleCollection, IEnumerable<InboundRule>
     {
         private InboundRule* _ptr = ptr;
         private readonly int _count = count;
@@ -62,7 +93,13 @@ namespace LibFirewall
             }
         }
 
+        public IFirewallRule GetRule(int index) => this[index];
+
         public IEnumerator<InboundRule> GetEnumerator() => new InboundRuleEnumerator(_ptr, _count);
+        IEnumerator<IFirewallRule> IEnumerable<IFirewallRule>.GetEnumerator()
+        {
+            for (int i = 0; i < _count; i++) yield return this[i];
+        }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public void Dispose()
@@ -99,7 +136,7 @@ namespace LibFirewall
         }
     }
 
-    public unsafe class OutboundRuleCollection(OutboundRule* ptr, int count) : IDisposable, IEnumerable<OutboundRule>
+    public unsafe class OutboundRuleCollection(OutboundRule* ptr, int count) : IFirewallRuleCollection, IEnumerable<OutboundRule>
     {
         private OutboundRule* _ptr = ptr;
         private readonly int _count = count;
@@ -116,7 +153,13 @@ namespace LibFirewall
             }
         }
 
+        public IFirewallRule GetRule(int index) => this[index];
+
         public IEnumerator<OutboundRule> GetEnumerator() => new OutboundRuleEnumerator(_ptr, _count);
+        IEnumerator<IFirewallRule> IEnumerable<IFirewallRule>.GetEnumerator()
+        {
+            for (int i = 0; i < _count; i++) yield return this[i];
+        }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public void Dispose()
@@ -153,3 +196,4 @@ namespace LibFirewall
         }
     }
 }
+
