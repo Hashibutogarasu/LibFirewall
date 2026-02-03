@@ -3,7 +3,9 @@
     ".": {
       "release-type": "simple",
       "package-name": "LibFirewall",
+      "component": "LibFirewall",
       "include-component-in-tag": false,
+      "pull-request-title-pattern": "chore: release ${component} ${version}",
       "extra-files": [
         {
           "type": "xml",
@@ -14,7 +16,9 @@
     },
     "rust": {
       "release-type": "rust",
-      "package-name": "lib_firewall_rust"
+      "package-name": "lib_firewall_rust",
+      "component": "lib_firewall_rust",
+      "pull-request-title-pattern": "chore: release ${component} ${version}"
     }
   },
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
