@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.1.0](https://github.com/Hashibutogarasu/LibFirewall/compare/v3.0.0...v3.1.0) (2026-02-03)
+
+
+### Features
+
+* added add edit remove inbound outbound rule ([77a8f05](https://github.com/Hashibutogarasu/LibFirewall/commit/77a8f05d3c96dad19f25094512dbd94b91d20b80))
+* added add edit remove inbound outbound rule ([42a7fcc](https://github.com/Hashibutogarasu/LibFirewall/commit/42a7fcc54573190e894d84cf1ae7bb0d1d479e49))
+
+
+### Bug Fixes
+
+* fixed release please ([3d8b1aa](https://github.com/Hashibutogarasu/LibFirewall/commit/3d8b1aafcdc20dcac36e6606aac3b0e004666fb7))
+* fixed release please ([2b18311](https://github.com/Hashibutogarasu/LibFirewall/commit/2b18311db41d5b65de5d016cb90db596bcedde65))
+
 ## [3.0.0](https://github.com/Hashibutogarasu/LibFirewall/compare/v2.1.0...v3.0.0) (2026-02-03)
 
 
