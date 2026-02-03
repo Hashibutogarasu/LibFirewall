@@ -5,7 +5,11 @@
       "package-name": "LibFirewall",
       "include-component-in-tag": false,
       "extra-files": [
-        "LibFirewall.csproj"
+        {
+          "type": "xml",
+          "path": "LibFirewall.csproj",
+          "xpath": "//Project/PropertyGroup/Version"
+        }
       ]
     },
     "rust": {
