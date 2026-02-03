@@ -156,6 +156,20 @@ impl ConnectionSecurityAdapter {
 
         Ok(())
     }
+
+    pub fn update_rule(rule: &ConnectionRule) -> Result<()> {
+        let name = unsafe { CStr::from_ptr(rule.name).to_string_lossy() };
+
+        if Self::is_system_rule(&name) {
+            return Err(HRESULT(-2).into());
+        }
+
+        if !Self::rule_exists(&name)? {
+            return Err(HRESULT(-3).into());
+        }
+
+        Self::add_rule_unchecked(rule)
+    }
 }
 
 pub struct ConnectionRuleCreator {
@@ -238,5 +252,88 @@ impl ConnectionRuleCreator {
     pub fn create(&self) -> Result<()> {
         let rule = self.build();
         ConnectionSecurityAdapter::add_rule(&rule)
+    }
+}
+
+pub struct ConnectionRuleEditor {
+    name: String,
+    description: String,
+    rule_type: ConnectionSecurityRuleType,
+    enabled: bool,
+    profiles: i32,
+    local_addresses: String,
+    remote_addresses: String,
+    endpoint1_ports: String,
+    endpoint2_ports: String,
+    protocol: i32,
+    auth_type: i32,
+}
+
+impl ConnectionRuleEditor {
+    pub fn new(name: &str) -> Self {
+        Self {
+            name: name.to_string(),
+            description: String::new(),
+            rule_type: ConnectionSecurityRuleType::Custom,
+            enabled: true,
+            profiles: 0x7FFFFFFF,
+            local_addresses: "*".to_string(),
+            remote_addresses: "*".to_string(),
+            endpoint1_ports: String::new(),
+            endpoint2_ports: String::new(),
+            protocol: 256,
+            auth_type: 0,
+        }
+    }
+
+    pub fn description(mut self, desc: &str) -> Self {
+        self.description = desc.to_string();
+        self
+    }
+
+    pub fn rule_type(mut self, rt: ConnectionSecurityRuleType) -> Self {
+        self.rule_type = rt;
+        self
+    }
+
+    pub fn enabled(mut self, enabled: bool) -> Self {
+        self.enabled = enabled;
+        self
+    }
+
+    pub fn profiles(mut self, profiles: i32) -> Self {
+        self.profiles = profiles;
+        self
+    }
+
+    pub fn local_addresses(mut self, addr: &str) -> Self {
+        self.local_addresses = addr.to_string();
+        self
+    }
+
+    pub fn remote_addresses(mut self, addr: &str) -> Self {
+        self.remote_addresses = addr.to_string();
+        self
+    }
+
+    pub fn build(&self) -> ConnectionRule {
+        ConnectionRule::new(
+            &self.name,
+            &self.description,
+            self.rule_type,
+            self.enabled,
+            self.profiles,
+            &self.local_addresses,
+            &self.remote_addresses,
+            &self.endpoint1_ports,
+            &self.endpoint2_ports,
+            self.protocol,
+            self.auth_type,
+        )
+    }
+
+    pub fn update(&self) -> Result<()> {
+        let rule = self.build();
+        ConnectionSecurityAdapter::update_rule(&rule)
     }
 }

@@ -222,3 +222,63 @@ fn test_builder_pattern_fluent_api() {
 
     println!("✓ Builder pattern fluent API test passed");
 }
+
+#[test]
+fn test_update_rule() {
+    use lib_firewall_rust::core::connection::adapter::ConnectionRuleEditor;
+
+    let rule_name = format!("{}UpdateTest", TEST_PREFIX);
+    cleanup_test_rule(&rule_name);
+
+    let create_result = ConnectionRuleCreator::new(&rule_name)
+        .description("Initial description")
+        .rule_type(ConnectionSecurityRuleType::Custom)
+        .enabled(true)
+        .create();
+
+    if let Err(e) = &create_result {
+        println!("Create failed (may require admin): {}", e);
+        return;
+    }
+
+    let update_result = ConnectionRuleEditor::new(&rule_name)
+        .description("Updated description")
+        .rule_type(ConnectionSecurityRuleType::Custom)
+        .enabled(false)
+        .update();
+
+    assert!(update_result.is_ok(), "Failed to update rule");
+
+    let _ = ConnectionSecurityAdapter::remove_rule(&rule_name);
+
+    println!("✓ Update rule test passed");
+}
+
+#[test]
+fn test_update_nonexistent_rule() {
+    use lib_firewall_rust::core::connection::adapter::ConnectionRuleEditor;
+
+    let rule_name = format!("{}NonExistent", TEST_PREFIX);
+    cleanup_test_rule(&rule_name);
+
+    let update_result = ConnectionRuleEditor::new(&rule_name)
+        .description("Should fail")
+        .update();
+
+    assert!(update_result.is_err(), "Should fail for non-existent rule");
+
+    println!("✓ Update non-existent rule test passed");
+}
+
+#[test]
+fn test_update_system_rule_blocked() {
+    use lib_firewall_rust::core::connection::adapter::ConnectionRuleEditor;
+
+    let update_result = ConnectionRuleEditor::new("{SystemRule}")
+        .description("Should fail")
+        .update();
+
+    assert!(update_result.is_err(), "Should block system rule update");
+
+    println!("✓ Update system rule blocked test passed");
+}
