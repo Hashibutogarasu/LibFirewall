@@ -6,6 +6,7 @@ fn main() {
         .input_extern_file("src/core/rule/enums.rs")
         .input_extern_file("src/core/rule/inbound.rs")
         .input_extern_file("src/core/rule/outbound.rs")
+        .input_extern_file("src/core/connection/rule.rs")
         .csharp_dll_name("lib_firewall_rust")
         .csharp_namespace("LibFirewall")
         .csharp_class_accessibility("public")
