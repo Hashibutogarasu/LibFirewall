@@ -25,6 +25,7 @@ pub struct RuleProperties {
     pub remote_machine_authorized_list: String,
     pub application_name: String,
     pub service_name: String,
+    pub grouping: String,
 }
 
 impl RuleProperties {
@@ -71,6 +72,7 @@ impl RuleProperties {
 
         let application_name = rule.ApplicationName().unwrap_or_default().to_string();
         let service_name = rule.ServiceName().unwrap_or_default().to_string();
+        let grouping = rule.Grouping().unwrap_or_default().to_string();
 
         RuleProperties {
             name,
@@ -90,6 +92,7 @@ impl RuleProperties {
             remote_machine_authorized_list: remote_machine,
             application_name,
             service_name,
+            grouping,
         }
     }
 }
@@ -123,6 +126,7 @@ impl RuleFactory for InboundRule {
             &p.remote_machine_authorized_list,
             &p.application_name,
             &p.service_name,
+            &p.grouping,
         )
     }
 }
@@ -151,6 +155,7 @@ impl RuleFactory for OutboundRule {
             &p.remote_machine_authorized_list,
             &p.application_name,
             &p.service_name,
+            &p.grouping,
         )
     }
 }

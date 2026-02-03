@@ -22,6 +22,7 @@ pub struct InboundRule {
     pub remote_machine_authorized_list: *mut c_char,
     pub application_name: *mut c_char,
     pub service_name: *mut c_char,
+    pub grouping: *mut c_char,
 }
 
 impl InboundRule {
@@ -44,6 +45,7 @@ impl InboundRule {
         remote_machine_authorized_list: &str,
         application_name: &str,
         service_name: &str,
+        grouping: &str,
     ) -> Self {
         Self {
             name: CString::new(name).unwrap().into_raw(),
@@ -70,6 +72,7 @@ impl InboundRule {
                 .into_raw(),
             application_name: CString::new(application_name).unwrap().into_raw(),
             service_name: CString::new(service_name).unwrap().into_raw(),
+            grouping: CString::new(grouping).unwrap().into_raw(),
         }
     }
 }

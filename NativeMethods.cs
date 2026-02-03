@@ -31,6 +31,38 @@ namespace LibFirewall
         [DllImport(__DllName, EntryPoint = "firewall_get_connection_rules", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern ConnectionRule* firewall_get_connection_rules(int* count);
 
+        [DllImport(__DllName, EntryPoint = "firewall_add_inbound_rule", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool firewall_add_inbound_rule(InboundRule* rule);
+
+        [DllImport(__DllName, EntryPoint = "firewall_add_outbound_rule", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool firewall_add_outbound_rule(OutboundRule* rule);
+
+        [DllImport(__DllName, EntryPoint = "firewall_update_inbound_rule", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool firewall_update_inbound_rule(InboundRule* rule);
+
+        [DllImport(__DllName, EntryPoint = "firewall_update_outbound_rule", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool firewall_update_outbound_rule(OutboundRule* rule);
+
+        [DllImport(__DllName, EntryPoint = "firewall_delete_rule", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool firewall_delete_rule(byte* name);
+
+        [DllImport(__DllName, EntryPoint = "firewall_add_connection_rule", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool firewall_add_connection_rule(ConnectionRule* rule);
+
+        [DllImport(__DllName, EntryPoint = "firewall_update_connection_rule", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool firewall_update_connection_rule(ConnectionRule* rule);
+
+        [DllImport(__DllName, EntryPoint = "firewall_delete_connection_rule", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [return: MarshalAs(UnmanagedType.U1)]
+        public static extern bool firewall_delete_connection_rule(byte* name);
+
         [DllImport(__DllName, EntryPoint = "firewall_free_string", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void firewall_free_string(byte* ptr);
 
@@ -67,6 +99,7 @@ namespace LibFirewall
         public byte* remote_machine_authorized_list;
         public byte* application_name;
         public byte* service_name;
+        public byte* grouping;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -90,6 +123,7 @@ namespace LibFirewall
         public byte* remote_machine_authorized_list;
         public byte* application_name;
         public byte* service_name;
+        public byte* grouping;
     }
 
     [StructLayout(LayoutKind.Sequential)]
