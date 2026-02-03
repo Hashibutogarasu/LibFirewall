@@ -1,12 +1,5 @@
 # Changelog
 
-## [1.6.1-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.6.0-beta1...v1.6.1-beta1) (2026-02-02)
-
-
-### Bug Fixes
-
-* fixed version ([963ea75](https://github.com/Hashibutogarasu/LibFirewall/commit/963ea75dd604df2a2a5e19fa2960a7bef3181baa))
-
 ## [1.6.0-beta1](https://github.com/Hashibutogarasu/LibFirewall/compare/v1.5.0-beta1...v1.6.0-beta1) (2026-02-02)
 
 
