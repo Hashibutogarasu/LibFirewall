@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/Hashibutogarasu/LibFirewall/compare/lib_firewall_rust-v1.2.0...lib_firewall_rust-v1.3.0) (2026-02-04)
+
+
+### Features
+
+* added support for local_user_owner ([a95543c](https://github.com/Hashibutogarasu/LibFirewall/commit/a95543c91ec6482363fd31d48a7fc115f37dcc35))
+* added support for local_user_owner ([60579b2](https://github.com/Hashibutogarasu/LibFirewall/commit/60579b28fefe5d13322a12e25720f89bf9d939ba))
+
 ## [1.2.0](https://github.com/Hashibutogarasu/LibFirewall/compare/lib_firewall_rust-v1.1.0...lib_firewall_rust-v1.2.0) (2026-02-03)
 
 
