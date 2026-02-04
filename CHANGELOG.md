@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.2.0](https://github.com/Hashibutogarasu/LibFirewall/compare/v3.1.0...v3.2.0) (2026-02-04)
+
+
+### Features
+
+* added shared library ([9989434](https://github.com/Hashibutogarasu/LibFirewall/commit/9989434d44348f2978f5655f9cf2324f779cc427))
+* added shared library ([de053ad](https://github.com/Hashibutogarasu/LibFirewall/commit/de053ade85102cd308f8282f269a8bed44326c94))
+
 ## [3.1.0](https://github.com/Hashibutogarasu/LibFirewall/compare/v3.0.0...v3.1.0) (2026-02-03)
 
 
