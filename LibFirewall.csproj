@@ -38,8 +38,12 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LibFirewall.Shared\LibFirewall.Shared.csproj" />
+  </ItemGroup>
+
   <Target Name="BuildRust" BeforeTargets="BeforeBuild">
-    <Exec Command="cargo build --release" WorkingDirectory="rust"/>
+    <Exec Command="cargo build --release" WorkingDirectory="rust" />
   </Target>
   
 </Project>
