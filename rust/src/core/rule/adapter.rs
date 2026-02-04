@@ -224,6 +224,7 @@ pub struct InboundRuleCreator {
     application_name: String,
     service_name: String,
     grouping: String,
+    local_user_owner: String,
 }
 
 impl InboundRuleCreator {
@@ -244,6 +245,7 @@ impl InboundRuleCreator {
             application_name: String::new(),
             service_name: String::new(),
             grouping: DEFAULT_GROUPING.to_string(),
+            local_user_owner: String::new(),
         }
     }
 
@@ -277,6 +279,11 @@ impl InboundRuleCreator {
         self
     }
 
+    pub fn local_user_owner(mut self, owner: &str) -> Self {
+        self.local_user_owner = owner.to_string();
+        self
+    }
+
     pub fn create(&self) -> Result<()> {
         let rule = InboundRule::new(
             &self.name,
@@ -297,6 +304,7 @@ impl InboundRuleCreator {
             &self.application_name,
             &self.service_name,
             &self.grouping,
+            &self.local_user_owner,
         );
         FirewallAdapter::add_inbound_rule(&rule)
     }
@@ -318,6 +326,7 @@ pub struct OutboundRuleCreator {
     application_name: String,
     service_name: String,
     grouping: String,
+    local_user_owner: String,
 }
 
 impl OutboundRuleCreator {
@@ -338,6 +347,7 @@ impl OutboundRuleCreator {
             application_name: String::new(),
             service_name: String::new(),
             grouping: DEFAULT_GROUPING.to_string(),
+            local_user_owner: String::new(),
         }
     }
 
@@ -371,6 +381,11 @@ impl OutboundRuleCreator {
         self
     }
 
+    pub fn local_user_owner(mut self, owner: &str) -> Self {
+        self.local_user_owner = owner.to_string();
+        self
+    }
+
     pub fn create(&self) -> Result<()> {
         let rule = OutboundRule::new(
             &self.name,
@@ -391,6 +406,7 @@ impl OutboundRuleCreator {
             &self.application_name,
             &self.service_name,
             &self.grouping,
+            &self.local_user_owner,
         );
         FirewallAdapter::add_outbound_rule(&rule)
     }
@@ -417,6 +433,11 @@ impl InboundRuleEditor {
         self
     }
 
+    pub fn local_user_owner(mut self, owner: &str) -> Self {
+        self.creator.local_user_owner = owner.to_string();
+        self
+    }
+
     pub fn update(&self) -> Result<()> {
         let rule = InboundRule::new(
             &self.creator.name,
@@ -437,6 +458,7 @@ impl InboundRuleEditor {
             &self.creator.application_name,
             &self.creator.service_name,
             &self.creator.grouping,
+            &self.creator.local_user_owner,
         );
         FirewallAdapter::update_inbound_rule(&rule)
     }
@@ -463,6 +485,11 @@ impl OutboundRuleEditor {
         self
     }
 
+    pub fn local_user_owner(mut self, owner: &str) -> Self {
+        self.creator.local_user_owner = owner.to_string();
+        self
+    }
+
     pub fn update(&self) -> Result<()> {
         let rule = OutboundRule::new(
             &self.creator.name,
@@ -483,6 +510,7 @@ impl OutboundRuleEditor {
             &self.creator.application_name,
             &self.creator.service_name,
             &self.creator.grouping,
+            &self.creator.local_user_owner,
         );
         FirewallAdapter::update_outbound_rule(&rule)
     }

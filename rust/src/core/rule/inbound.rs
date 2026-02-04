@@ -23,6 +23,7 @@ pub struct InboundRule {
     pub application_name: *mut c_char,
     pub service_name: *mut c_char,
     pub grouping: *mut c_char,
+    pub local_user_owner: *mut c_char,
 }
 
 impl InboundRule {
@@ -46,6 +47,7 @@ impl InboundRule {
         application_name: &str,
         service_name: &str,
         grouping: &str,
+        local_user_owner: &str,
     ) -> Self {
         Self {
             name: CString::new(name).unwrap().into_raw(),
@@ -73,6 +75,7 @@ impl InboundRule {
             application_name: CString::new(application_name).unwrap().into_raw(),
             service_name: CString::new(service_name).unwrap().into_raw(),
             grouping: CString::new(grouping).unwrap().into_raw(),
+            local_user_owner: CString::new(local_user_owner).unwrap().into_raw(),
         }
     }
 }

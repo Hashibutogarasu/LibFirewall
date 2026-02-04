@@ -26,6 +26,7 @@ pub struct RuleProperties {
     pub application_name: String,
     pub service_name: String,
     pub grouping: String,
+    pub local_user_owner: String,
 }
 
 impl RuleProperties {
@@ -50,25 +51,26 @@ impl RuleProperties {
         let interface_types = rule.InterfaceTypes().unwrap_or_default().to_string();
         let edge_traversal = rule.EdgeTraversal().unwrap_or_default().as_bool();
 
-        let (local_usr, remote_usr, remote_machine) = if let Ok(rule3) = rule.cast::<INetFwRule3>()
-        {
-            (
-                rule3
-                    .LocalUserAuthorizedList()
-                    .unwrap_or_default()
-                    .to_string(),
-                rule3
-                    .RemoteUserAuthorizedList()
-                    .unwrap_or_default()
-                    .to_string(),
-                rule3
-                    .RemoteMachineAuthorizedList()
-                    .unwrap_or_default()
-                    .to_string(),
-            )
-        } else {
-            (String::new(), String::new(), String::new())
-        };
+        let (local_usr, remote_usr, remote_machine, local_owner) =
+            if let Ok(rule3) = rule.cast::<INetFwRule3>() {
+                (
+                    rule3
+                        .LocalUserAuthorizedList()
+                        .unwrap_or_default()
+                        .to_string(),
+                    rule3
+                        .RemoteUserAuthorizedList()
+                        .unwrap_or_default()
+                        .to_string(),
+                    rule3
+                        .RemoteMachineAuthorizedList()
+                        .unwrap_or_default()
+                        .to_string(),
+                    rule3.LocalUserOwner().unwrap_or_default().to_string(),
+                )
+            } else {
+                (String::new(), String::new(), String::new(), String::new())
+            };
 
         let application_name = rule.ApplicationName().unwrap_or_default().to_string();
         let service_name = rule.ServiceName().unwrap_or_default().to_string();
@@ -93,6 +95,7 @@ impl RuleProperties {
             application_name,
             service_name,
             grouping,
+            local_user_owner: local_owner,
         }
     }
 }
@@ -127,6 +130,7 @@ impl RuleFactory for InboundRule {
             &p.application_name,
             &p.service_name,
             &p.grouping,
+            &p.local_user_owner,
         )
     }
 }
@@ -156,6 +160,7 @@ impl RuleFactory for OutboundRule {
             &p.application_name,
             &p.service_name,
             &p.grouping,
+            &p.local_user_owner,
         )
     }
 }

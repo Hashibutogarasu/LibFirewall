@@ -100,6 +100,7 @@ namespace LibFirewall
         public byte* application_name;
         public byte* service_name;
         public byte* grouping;
+        public byte* local_user_owner;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -124,6 +125,7 @@ namespace LibFirewall
         public byte* application_name;
         public byte* service_name;
         public byte* grouping;
+        public byte* local_user_owner;
     }
 
     [StructLayout(LayoutKind.Sequential)]
